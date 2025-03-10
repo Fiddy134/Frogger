@@ -56,15 +56,15 @@ public class GameScene {
         HBox hud = new HBox(20);
         scoreLabel = new Label("Poäng: 0");
         scoreLabel.setFont(Font.font(18));
-        scoreLabel.setTextFill(Color.WHITE);
+        scoreLabel.setTextFill(Color.BLACK);
         
         livesLabel = new Label("Liv: 3");
         livesLabel.setFont(Font.font(18));
-        livesLabel.setTextFill(Color.WHITE);
+        livesLabel.setTextFill(Color.BLACK);
         
         levelLabel = new Label("Nivå: 1");
         levelLabel.setFont(Font.font(18));
-        levelLabel.setTextFill(Color.WHITE);
+        levelLabel.setTextFill(Color.BLACK);
         
         hud.getChildren().addAll(scoreLabel, livesLabel, levelLabel);
         

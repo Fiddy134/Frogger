@@ -2,24 +2,39 @@ import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import javafx.animation.FillTransition;
 import javafx.util.Duration;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
+
+
 
 /**
  * Representerar spelarens grodkaraktär
  */
 public class Frog extends GameObject {
-    private static final int SIZE = 38;
+    private static final int SIZE = 60;
     private static final double DEFAULT_MOVE_DISTANCE = 40;
     
     private double moveDistance = DEFAULT_MOVE_DISTANCE;
     private boolean invincible = false;
+    private boolean speedboost = false;
     private long invincibilityEndTime = 0;
     private long speedBoostEndTime = 0;
     
     public Frog(double x, double y) {
         super(x, y);
         
-        Rectangle rect = new Rectangle(SIZE, SIZE, Color.GREEN);
-        node = rect;
+        Image frogImage = new Image("file:/home/vinro908/TDDE10/grodanboll.png");
+        ImageView imageView = new ImageView(frogImage);
+        
+        // Ställ in storleken
+        imageView.setFitWidth(SIZE);
+        imageView.setFitHeight(SIZE);
+        imageView.setPreserveRatio(true);
+        
+       // Rectangle rect = new Rectangle(SIZE, SIZE, Color.GREEN);
+        //node = rect;
+        
+        node = imageView;
         updateNodePosition();
     }
     
@@ -68,8 +83,12 @@ public class Frog extends GameObject {
         invincibilityEndTime = System.currentTimeMillis() + 5000;
         
         // Visuell effekt
-        Rectangle rect = (Rectangle) node;
-        rect.setFill(Color.GOLD);
+        ImageView imageView = (ImageView) node;
+        javafx.scene.effect.ColorAdjust golden = new javafx.scene.effect.ColorAdjust();
+        golden.setBrightness(0.2);
+        golden.setSaturation(0.8);
+        golden.setHue(2.1);
+        imageView.setEffect(golden);
     }
     
     /**
@@ -79,8 +98,8 @@ public class Frog extends GameObject {
         invincible = false;
         
         // Återställ utseende
-        Rectangle rect = (Rectangle) node;
-        rect.setFill(Color.GREEN);
+        ImageView imageView = (ImageView) node;
+        imageView.setEffect(null);
     }
     
     /**
@@ -91,9 +110,10 @@ public class Frog extends GameObject {
         speedBoostEndTime = System.currentTimeMillis() + 5000;
         
         // Visuell effekt
-        Rectangle rect = (Rectangle) node;
-        rect.setStroke(Color.CYAN);
-        rect.setStrokeWidth(3);
+        ImageView imageView = (ImageView) node;
+        javafx.scene.effect.Glow glow = new javafx.scene.effect.Glow();
+        glow.setLevel(2.0);
+        imageView.setEffect(glow);
     }
     
     /**
@@ -103,8 +123,8 @@ public class Frog extends GameObject {
         moveDistance = DEFAULT_MOVE_DISTANCE;
         
         // Återställ utseende
-        Rectangle rect = (Rectangle) node;
-        rect.setStroke(null);
+        ImageView imageView = (ImageView) node;
+        imageView.setEffect(null);
     }
     
     /**

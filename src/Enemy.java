@@ -7,6 +7,9 @@ public abstract class Enemy extends GameObject {
     public Enemy(double x, double y) {
         super(x, y);
     }
+
+    public void setTarget(Frog target) {
+    }    
     
     /**
      * Returnerar fiendens hastighet

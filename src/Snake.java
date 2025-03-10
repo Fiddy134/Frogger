@@ -1,3 +1,5 @@
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 
@@ -5,7 +7,7 @@ import javafx.scene.shape.Rectangle;
  * Representerar en orm-fiende som jagar spelaren
  */
 public class Snake extends Enemy {
-    private static final int SIZE = 35;
+    private static final int SIZE = 100;
     private static final double CHASE_SPEED = 60.0;
     private Frog target;
     
@@ -16,15 +18,25 @@ public class Snake extends Enemy {
         // Sätt basfart
         speed = CHASE_SPEED;
         
-        // Skapa grafisk representation
-        Rectangle rect = new Rectangle(SIZE, SIZE, Color.DARKGREEN);
-        node = rect;
+        Image ormImage = new Image("file:/home/vinro908/TDDE10/orm.gif");
+        ImageView imageView = new ImageView(ormImage);
+        
+        // Ställ in storleken
+        imageView.setFitWidth(SIZE);
+        imageView.setFitHeight(SIZE);
+        imageView.setPreserveRatio(true);
+        
+       // Rectangle rect = new Rectangle(SIZE, SIZE, Color.GREEN);
+        //node = rect;
+        
+        node = imageView;
         updateNodePosition();
     }
     
     /**
      * Sätter spelaren som måltavla för ormen
      */
+    @Override
     public void setTarget(Frog target) {
         this.target = target;
     }

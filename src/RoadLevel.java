@@ -1,13 +1,20 @@
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
+import javafx.scene.image.Image;
+import javafx.scene.layout.Pane;
+import javafx.scene.layout.Background;
+import javafx.scene.layout.BackgroundImage;
+import javafx.scene.layout.BackgroundRepeat;
+import javafx.scene.layout.BackgroundPosition;
+import javafx.scene.layout.BackgroundSize;
 
 /**
  * Vägbana med bilar som fiender
  */
 public class RoadLevel extends Level {
     
-    public RoadLevel(double width, double height) {
-        super(width, height);
+    public RoadLevel(Pane root, double width, double height) {
+        super(root, width, height);
     }
     
     @Override

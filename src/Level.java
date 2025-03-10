@@ -1,6 +1,7 @@
 import javafx.scene.Node;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
+import javafx.scene.layout.Pane;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
@@ -9,6 +10,7 @@ import java.util.Random;
  * Basklass för alla banor i spelet
  */
 public abstract class Level {
+    protected Pane root;
     protected double width;
     protected double height;
     protected List<Node> nodes = new ArrayList<>();
@@ -16,7 +18,8 @@ public abstract class Level {
     protected List<PowerUp> powerUps = new ArrayList<>();
     protected Random random = new Random();
     
-    public Level(double width, double height) {
+    public Level(Pane root, double width, double height) {
+	this.root = root;
         this.width = width;
         this.height = height;
         
@@ -28,6 +31,9 @@ public abstract class Level {
         
         // Skapa specifika banelement
         createLevelElements();
+    }
+
+    public void setPlayerReference(Frog player) {
     }
     
     /**

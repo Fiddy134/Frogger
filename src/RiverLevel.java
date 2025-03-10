@@ -1,3 +1,4 @@
+import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 
@@ -5,10 +6,9 @@ import javafx.scene.shape.Rectangle;
  * Flodbana med ormar som fiender
  */
 public class RiverLevel extends Level {
-    private Frog playerRef; // Reference till spelaren för ormarna
     
-    public RiverLevel(double width, double height) {
-        super(width, height);
+    public RiverLevel(Pane root, double width, double height) {
+        super(root, width, height);
     }
     
     @Override
@@ -44,14 +44,12 @@ public class RiverLevel extends Level {
     /**
      * Sätter spelarreferensen för ormarna
      */
+    @Override
     public void setPlayerReference(Frog player) {
-        this.playerRef = player;
         
         // Uppdatera alla ormar med spelarreferensen
         for (Enemy enemy : enemies) {
-            if (enemy instanceof Snake) {
-                ((Snake) enemy).setTarget(player);
-            }
+	    enemy.setTarget(player);
         }
     }
 }

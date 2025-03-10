@@ -1,3 +1,6 @@
+import javafx.scene.Node;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 
@@ -7,7 +10,7 @@ import javafx.scene.shape.Rectangle;
 public class Car extends Enemy {
     private static final int SIZE = 40;
     private static final double MIN_SPEED = 50.0;
-    private static final double MAX_SPEED = 150.0;
+    private static final double MAX_SPEED = 300.0;
     private boolean movingRight;
     
     public Car(double x, double y, boolean movingRight) {
@@ -18,8 +21,19 @@ public class Car extends Enemy {
         speed = MIN_SPEED + Math.random() * (MAX_SPEED - MIN_SPEED);
         
         // Skapa grafisk representation
-        Rectangle rect = new Rectangle(SIZE, SIZE, movingRight ? Color.RED : Color.DARKRED);
-        node = rect;
+	if (movingRight) {
+	    Image image = new Image("file:/home/vinro908/TDDE10/bluecar.gif",2*SIZE,SIZE,false,true);
+	    ImageView imv = new ImageView();
+	    imv.setImage(image);
+	    node = imv;
+	}
+	else {
+		 Image image = new Image("file:/home/vinro908/TDDE10/redcar.gif",2*SIZE,2*SIZE,false,true);
+		 ImageView imv = new ImageView();
+		    imv.setImage(image);
+		    node = imv;
+		    setPosition(x, y - SIZE/2);
+	}
         updateNodePosition();
     }
     

@@ -23,7 +23,7 @@ public class Main extends Application {
         highScoreScene = new HighScoreScene(this, scoreManager);
         
         // Konfigurera primärfönstret
-        primaryStage.setTitle("Frogger Game");
+        primaryStage.setTitle("Chronicles of Grodan Boll");
         primaryStage.setResizable(false);
         primaryStage.setScene(menuScene.getScene());
         primaryStage.show();

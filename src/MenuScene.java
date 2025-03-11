@@ -12,7 +12,7 @@ import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 
 /**
- * Representerar huvudmenyn i spelet med knappar för olika alternativ
+ * huvudmenyn i spelet med knappar för olika alternativ
  */
 public class MenuScene {
     private Scene scene;
@@ -39,11 +39,9 @@ public class MenuScene {
         );
         menuBox.setBackground(new Background(background));
         
-        // Titel
         Text titleText = new Text("Chronicles of Grodan Boll");
         titleText.setFont(Font.font(60));
         
-        // Knappar
         Button newGameButton = createButton("Nytt Spel", event -> app.startNewGame());
         Button highScoreButton = createButton("Highscore", event -> app.showHighScores());
         Button exitButton = createButton("Avsluta", event -> app.exitGame());

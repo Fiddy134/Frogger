@@ -6,9 +6,6 @@ import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 import java.util.List;
 
-/**
- * Representerar highscore-skärmen som visar de bästa poängen
- */
 public class HighScoreScene {
     private Scene scene;
     private Main app;
@@ -26,7 +23,6 @@ public class HighScoreScene {
         root.setAlignment(Pos.CENTER);
         root.setPrefSize(800, 600);
         
-        // Titel
         Text titleText = new Text("HIGHSCORES");
         titleText.setFont(Font.font(40));
         
@@ -34,7 +30,6 @@ public class HighScoreScene {
         scoresBox = new VBox(10);
         scoresBox.setAlignment(Pos.CENTER);
         
-        // Tillbaka-knapp
         Button backButton = new Button("Back to menu");
         backButton.setPrefWidth(200);
         backButton.setPrefHeight(40);
@@ -45,13 +40,9 @@ public class HighScoreScene {
         
         scene = new Scene(root);
         
-        // Uppdatera poänglistan
         updateScores();
     }
     
-    /**
-     * Uppdaterar listan med highscores
-     */
     public void updateScores() {
         scoresBox.getChildren().clear();
         

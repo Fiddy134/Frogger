@@ -4,8 +4,6 @@ import javafx.beans.property.SimpleIntegerProperty;
 import javafx.scene.Parent;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.Pane;
-import javafx.scene.paint.Color;
-import javafx.scene.shape.Rectangle;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
@@ -13,7 +11,7 @@ import java.util.Random;
 import java.util.function.Consumer;
 
 /**
- * Hanterar spellogiken och spelvärlden
+ * logik och spelvärld
  */
 public class GameWorld {
     private Pane root;
@@ -23,24 +21,24 @@ public class GameWorld {
     private AnimationTimer gameLoop;
     private Random random = new Random();
     
-    // Spelvariabler
+    // variabler
     private IntegerProperty score = new SimpleIntegerProperty(0);
     private IntegerProperty lives = new SimpleIntegerProperty(3);
     private IntegerProperty currentLevelIndex = new SimpleIntegerProperty(0);
     
-    // För callback när spelet är slut
+    // callback när spelet är slut
     private Consumer<Integer> gameOverCallback;
     
     // Powerup-timer
     private long lastPowerupTime = 0;
     
     public GameWorld(double width, double height) {
-        // Skapa root pane
+        // root pane
         root = new Pane();
         root.setPrefSize(width, height);
         root.setStyle("-fx-background-color: black;");
         
-        // Skapa spelaren (men lägg inte till den än)
+        // Skapa spelaren (lägger inte till den ännu)
         player = new Frog(width / 2, height - 60);
         
         // Skapa banor
@@ -53,7 +51,7 @@ public class GameWorld {
         // Lägg till spelaren EFTER banan (så den hamnar överst)
         root.getChildren().add(player.getNode());
         
-        // Skapa spel-loopen
+        // Skapa spel loopen
         gameLoop = new AnimationTimer() {
             private long lastUpdate = 0;
             
@@ -85,10 +83,10 @@ public class GameWorld {
         // Lägg till banobjekt till root
         root.getChildren().addAll(currentLevel.getNodes());
         
-        // Återställ spelarens position
+        // Reseta spelarens position
         player.reset(root.getPrefWidth() / 2, root.getPrefHeight() - 60);
         
-        // sätt spelarreferensen
+        // sätt spelar ref
 	currentLevel.setPlayerReference(player);
     }
     
@@ -124,19 +122,16 @@ public class GameWorld {
     }
     
     private void update(double deltaTime) {
-        // Uppdatera spelaren
         player.update(deltaTime);
         
         // Uppdatera alla spelelement
         currentLevel.update(deltaTime);
         
-        // Hantera kollisioner
+       
         checkCollisions();
         
-        // Generera powerups med viss sannolikhet
         generatePowerups();
         
-        // Kontrollera om spelaren når mållinjen
         checkWinCondition();
     }
     
@@ -144,41 +139,37 @@ public class GameWorld {
         // Kontrollera kollision med fiender
         for (Enemy enemy : currentLevel.getEnemies()) {
             if (player.isInvincible()) {
-                continue; // Skippa kollisionskontroll om spelaren är odödlig
+                continue; // Skippa kollision om spelaren är odödlig
             }
             
             if (player.collidesWith(enemy)) {
-                // Spelaren träffad, förlora ett liv
+                // förlora ett liv när träffad
                 lives.set(lives.get() - 1);
                 
                 if (lives.get() <= 0) {
-                    // Game over
                     stopGame();
                     if (gameOverCallback != null) {
                         gameOverCallback.accept(score.get());
                     }
                     return;
                 }
-                
-                // Återställ spelaren
+              
                 player.reset(root.getPrefWidth() / 2, root.getPrefHeight() - 60);
                 return;
             }
         }
         
-        // Kontrollera kollision med powerups
+        // Kontrollera att man tar powerups
         Iterator<PowerUp> it = currentLevel.getPowerUps().iterator();
         while (it.hasNext()) {
             PowerUp powerUp = it.next();
             if (player.collidesWith(powerUp)) {
-                // Aktivera powerup
                 powerUp.applyEffect(player);
                 
                 // Ta bort powerup från skärmen
                 root.getChildren().remove(powerUp.getNode());
                 it.remove();
                 
-                // Öka poäng
                 score.set(score.get() + 50);
             }
         }
@@ -187,7 +178,7 @@ public class GameWorld {
     private void generatePowerups() {
         long currentTime = System.currentTimeMillis();
         
-        // Generera en ny powerup var 5:e sekund med 10% sannolikhet
+        // Generera en ny powerup varje 5 sekund med 10% sannolikhet
         if (currentTime - lastPowerupTime > 5000 && random.nextDouble() < 0.1) {
             lastPowerupTime = currentTime;
             
@@ -195,23 +186,20 @@ public class GameWorld {
             double x = random.nextDouble() * (root.getPrefWidth() - 30);
             double y = 100 + random.nextDouble() * (root.getPrefHeight() - 200);
             
-            // Slumpmässigt välj vilken typ av powerup
+            // Slumpmässigt powerup
             if (random.nextBoolean()) {
                 powerUp = new InvincibilityPowerUp(x, y);
             } else {
                 powerUp = new SpeedBoostPowerUp(x, y);
             }
             
-            // Lägg till powerup i banan
             currentLevel.addPowerUp(powerUp);
             root.getChildren().add(powerUp.getNode());
         }
     }
     
     private void checkWinCondition() {
-        // Kontrollera om spelaren når toppen
         if (player.getY() <= 20) {
-            // Öka poäng
             score.set(score.get() + 100);
             
             // Ladda nästa nivå eller gå tillbaka till första

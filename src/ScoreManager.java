@@ -1,9 +1,6 @@
 import java.io.*;
 import java.util.*;
 
-/**
- * Hanterar lagring och laddning av poäng
- */
 public class ScoreManager {
     private static final String HIGHSCORE_FILE = "highscores.dat";
     private List<HighScore> highScores;
@@ -13,11 +10,6 @@ public class ScoreManager {
         loadScores();
     }
     
-    /**
-     * Lägger till en ny poäng
-     * @param name Spelarens namn
-     * @param score Poängen
-     */
     public void addScore(String name, int score) {
         highScores.add(new HighScore(name, score));
         sortScores();
@@ -37,7 +29,6 @@ public class ScoreManager {
         try (ObjectInputStream in = new ObjectInputStream(new FileInputStream(HIGHSCORE_FILE))) {
             highScores = (List<HighScore>) in.readObject();
         } catch (FileNotFoundException e) {
-            // Filen finns inte ännu, använd en tom lista
             highScores = new ArrayList<>();
         } catch (IOException | ClassNotFoundException e) {
             System.err.println("Fel vid laddning av highscores: " + e.getMessage());
@@ -58,7 +49,7 @@ public class ScoreManager {
     
     /**
      * Hämtar listan med highscores
-     * @return Lista med highscores
+     * 
      */
     public List<HighScore> getHighScores() {
         return new ArrayList<>(highScores);
@@ -66,6 +57,7 @@ public class ScoreManager {
     
     /**
      * Klass för att representera en highscore-post
+     * Fråga Magnus om man bör gör en egen klass som är HighScore?
      */
     public static class HighScore implements Serializable {
         private static final long serialVersionUID = 1L;

@@ -9,14 +9,10 @@ import javafx.application.Platform;
 import javafx.scene.control.TextInputDialog;
 import java.util.Optional;
 
-/**
- * Representerar själva spelskärmen
- */
 public class GameScene {
     private Scene scene;
     private Main app;
     private GameWorld gameWorld;
-    private ScoreManager scoreManager;
     private Label scoreLabel;
     private Label livesLabel;
     private Label levelLabel;
@@ -24,17 +20,14 @@ public class GameScene {
     
     public GameScene(Main app, ScoreManager scoreManager) {
         this.app = app;
-        this.scoreManager = scoreManager;
         
-        // Fråga efter spelarens namn
+        
         askForPlayerName();
         
-        // Skapa spelvärlden
         this.gameWorld = new GameWorld(800, 600);
         
         createGameScene();
         
-        // Starta spelet
         gameWorld.startGame();
     }
     
@@ -52,7 +45,7 @@ public class GameScene {
         BorderPane root = new BorderPane();
         root.setPrefSize(800, 600);
         
-        // HUD (Heads-Up Display) för poäng och liv
+        // HUD för poäng och liv
         HBox hud = new HBox(20);
         scoreLabel = new Label("Poäng: 0");
         scoreLabel.setFont(Font.font(18));
@@ -72,13 +65,11 @@ public class GameScene {
         root.setTop(hud);
         root.setCenter(gameWorld.getRoot());
         
-        // Skapa scenen
         scene = new Scene(root);
         
-        // Hantera tangentbordsinput
         scene.setOnKeyPressed(this::handleKeyPress);
         
-        // Uppdatera HUD när värden ändras
+        // Uppdatera HUD när man får mer poäng etc.
         gameWorld.scoreProperty().addListener((obs, oldVal, newVal) -> 
             Platform.runLater(() -> scoreLabel.setText("Poäng: " + newVal)));
         
@@ -88,7 +79,6 @@ public class GameScene {
         gameWorld.levelProperty().addListener((obs, oldVal, newVal) -> 
             Platform.runLater(() -> levelLabel.setText("Nivå: " + newVal)));
         
-        // Lyssna på game over
         gameWorld.setOnGameOver(score -> Platform.runLater(() -> app.gameOver(score)));
     }
     

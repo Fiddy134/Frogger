@@ -1,12 +1,6 @@
-import javafx.scene.Node;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.paint.Color;
-import javafx.scene.shape.Rectangle;
 
-/**
- * Representerar en bil-fiende som rör sig horisontellt i rak bana
- */
 public class Car extends Enemy {
     private static final int SIZE = 40;
     private static final double MIN_SPEED = 50.0;
@@ -20,7 +14,6 @@ public class Car extends Enemy {
         // Slumpmässig hastighet
         speed = MIN_SPEED + Math.random() * (MAX_SPEED - MIN_SPEED);
         
-        // Skapa grafisk representation
 	if (movingRight) {
 	    Image image = new Image("file:/home/vinro908/TDDE10/bluecar.gif",2*SIZE,SIZE,false,true);
 	    ImageView imv = new ImageView();

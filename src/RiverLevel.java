@@ -2,9 +2,6 @@ import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 
-/**
- * Flodbana med ormar som fiender
- */
 public class RiverLevel extends Level {
     
     public RiverLevel(Pane root, double width, double height) {
@@ -13,7 +10,6 @@ public class RiverLevel extends Level {
     
     @Override
     protected void createBackground() {
-        // Skapa vattenbakgrund
         Rectangle background = new Rectangle(width, height, Color.DARKBLUE);
         nodes.add(background);
         
@@ -21,7 +17,7 @@ public class RiverLevel extends Level {
         for (int y = 60; y < height - 60; y += 100) {
             for (int x = 0; x < width; x += 120) {
                 Rectangle platform = new Rectangle(80, 30, Color.BROWN);
-                platform.setTranslateX(x + (y % 200 == 0 ? 40 : 0)); // Förskjutna rader
+                platform.setTranslateX(x + (y % 200 == 0 ? 40 : 0)); 
                 platform.setTranslateY(y);
                 nodes.add(platform);
             }
@@ -30,24 +26,21 @@ public class RiverLevel extends Level {
     
     @Override
     protected void createLevelElements() {
-        // Skapa ormar som fiender
         for (int i = 0; i < 3; i++) {
             double x = 100 + i * 200;
             double y = 100 + i * 100;
             
-            Snake snake = new Snake(x, y, null); // Kommer att sätta player-referensen senare
+            Snake snake = new Snake(x, y, null); 
             enemies.add(snake);
             nodes.add(snake.getNode());
         }
     }
     
     /**
-     * Sätter spelarreferensen för ormarna
+     * Gör target på player
      */
     @Override
     public void setPlayerReference(Frog player) {
-        
-        // Uppdatera alla ormar med spelarreferensen
         for (Enemy enemy : enemies) {
 	    enemy.setTarget(player);
         }

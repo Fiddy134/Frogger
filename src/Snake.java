@@ -1,11 +1,7 @@
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.paint.Color;
-import javafx.scene.shape.Rectangle;
 
-/**
- * Representerar en orm-fiende som jagar spelaren
- */
+
 public class Snake extends Enemy {
     private static final int SIZE = 100;
     private static final double CHASE_SPEED = 60.0;
@@ -21,14 +17,10 @@ public class Snake extends Enemy {
         Image ormImage = new Image("file:/home/vinro908/TDDE10/orm.gif");
         ImageView imageView = new ImageView(ormImage);
         
-        // Ställ in storleken
         imageView.setFitWidth(SIZE);
         imageView.setFitHeight(SIZE);
         imageView.setPreserveRatio(true);
-        
-       // Rectangle rect = new Rectangle(SIZE, SIZE, Color.GREEN);
-        //node = rect;
-        
+         
         node = imageView;
         updateNodePosition();
     }

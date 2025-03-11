@@ -1,8 +1,5 @@
 import javafx.scene.Node;
 
-/**
- * Basklass för alla spelobjekt i spelet
- */
 public abstract class GameObject {
     protected Node node;
     protected double x;

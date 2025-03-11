@@ -1,4 +1,3 @@
-// WinScreen.java
 import javafx.animation.FadeTransition;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
